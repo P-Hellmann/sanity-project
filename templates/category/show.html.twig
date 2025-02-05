@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+    <style>
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+        h5 {
+            text-align: center;
+        }
+        .card {
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+            height: 250px;
+            text-align: center;
+        }
+    </style>
+    <body>
+    <header>
+        <h1>Sanity shop</h1>
+    </header>
+    <main>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
+        <h2>{{ category.name }}</h2>
+        <div class="products">
+            {% for product in products %}
+                <div class="card">
+                    <h5>{{ product.name }}</h5>
+                    <p>{{ product.price }}</p>
+                    <a href="{{ path('app_product_show', {id: product.id}) }}" class="btn-secondary">View</a>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+    </body>
+{% endblock %}

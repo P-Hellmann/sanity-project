@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products{% endblock %}
+
+{% block body %}
+    <style>
+        .product {
+
+        }
+    </style>
+    <body>
+    <header>
+        <h1>Sanity shop</h1>
+    </header>
+    <main>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
+        <div class="product">
+            <h2>{{ product.name }}</h2>
+            <p>{{ product.description }}</p>
+            <p>€ {{ product.price }}</p>
+            <p>Stock: {{ product.stock }}</p>
+            <p>Category: <a href="{{ path('app_category_show', {id: product.category.id }) }}" class="text-primary">{{ product.category.name }}</a></p>
+        </div>
+        <a href="{{ path('app_category_show', {id: product.category.id }) }}" class="btn btn-primary">Back to {{ product.category.name }}</a>
+        <form action="{{ path('app_cart_add', {id: product.id }) }}" method="post">
+            <input type="submit" value="Add to cart" class="btn btn-primary">
+        </form>
+    </main>
+    </body>
+{% endblock %}
