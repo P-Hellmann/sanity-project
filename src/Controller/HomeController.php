@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class HomeController extends AbstractController
 {
@@ -52,6 +53,16 @@ final class HomeController extends AbstractController
         // Render de 'over ons' pagina
         return $this->render('home/about.html.twig', [
             // Je kunt hier extra data toevoegen voor de Twig template
+        ]);
+    }
+
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/admin', name: 'app_admin')]
+    public function adminPanel(): Response
+    {
+        // Render de admin panel pagina
+        return $this->render('home/admin_panel.html.twig', [
+            // Voeg hier data toe voor de Twig template
         ]);
     }
 }

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit {{ category.name }}{% endblock %}
+
+{% block body %}
+    <style>
+        main {
+            height: fit-content !important;
+        }
+    </style>
+    <body>
+    <header>
+        <h1>Sanity shop</h1>
+    </header>
+    <main>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
+        <h2>Checkout</h2>
+        <p>Please fill in the details you want to be updated</p>
+        {{ form_start(editCategoryForm) }}
+        {{ form_row(editCategoryForm.name) }}
+        {{ form_row(editCategoryForm.submit) }}
+        {{ form_end(editCategoryForm) }}
+        <br>
+        <br>
+    </main>
+    </body>
+{% endblock %}

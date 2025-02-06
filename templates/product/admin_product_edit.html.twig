@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Product Edit{% endblock %}
+
+{% block body %}
+    <style>
+    .categories {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+    h5 {
+        text-align: center;
+    }
+    .card {
+        margin: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 200px;
+        height: 250px;
+        text-align: center;
+    }
+    </style>
+    <body>
+    <header>
+        <h1>Sanity shop</h1>
+    </header>
+    <main>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
+        <h2>Categories</h2>
+        <div class="categories">
+            {% for category in categories %}
+                <div class="card">
+                    <h5>{{ category.name }}</h5>
+                    <a href="{{ path('app_category_show', {id: category.id}) }}" class="btn-secondary">Browse</a>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+    </body>
+{% endblock %}

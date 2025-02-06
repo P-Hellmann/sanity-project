@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Orders{% endblock %}
+
+{% block body %}
+    <style>
+        main {
+            height: fit-content !important;
+        }
+    </style>
+    <body>
+    <header>
+        <h1>Sanity shop</h1>
+    </header>
+    <main>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop Logo" class="banner">
+        <h2>All Orders</h2>
+        <section>
+            {% for order in orders %}
+                <strong> Order Information (Order #{{ order.id }}): </strong><br><br>
+                <p><strong>First Name:</strong> {{ order.firstName }}</p>
+                <p><strong>Last Name:</strong> {{ order.lastName }}</p>
+                <p><strong>Email:</strong> {{ order.email }}</p>
+                <p><strong>Address:</strong> {{ order.address }}</p>
+                <p><strong>Phone:</strong> {{ order.phone }}</p>
+                <p><strong>Total Price:</strong> ${{ order.totalPrice }}</p>
+                <h5>Items:</h5>
+                {% for item in order.items['items'] %}
+                    - {{ item.product_name }} - ${{ item.price }} x {{ item.quantity }}
+                {% endfor %}
+                <a href="app_admin_orders_edit, {id: {{ order.id }} }" class="btn btn-warning">Edit</a>
+                <a href="app_admin_orders_delete, {id: {{ order.id }} }" class="btn btn-danger">Delete</a>
+                <br><br>
+            {% endfor %}
+        </section>
+        <br>
+        <a href="{{ path('app_admin') }}" class="btn-primary">Back to Dashboard</a>
+    </main>
+    </body>
+{% endblock %}
