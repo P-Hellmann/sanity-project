@@ -17,21 +17,34 @@ final class CartController extends AbstractController
     #[Route('/cart', name: 'app_cart')]
     public function index(EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
+        // Haal de ingelogde gebruiker op
         $user = $this->getUser();
+
+        // Zoek het winkelwagentje van de gebruiker
         $shoppingCart = $entityManager->getRepository(ShoppingCart::class)->findOneBy(['user' => $user]);
+
+        // Haal de winkelwagengegevens op
         $cartData = $shoppingCart->getCartData();
         $items = $cartData['items'];
         $total = 0;
         $amountOfItems = 0;
+
+        // Bereken het totaalbedrag en het aantal producten
         foreach ($items as $item) {
             $product = $entityManager->getRepository(Product::class)->find($item['product_id']);
             $total += $product->getPrice() * $item['quantity'];
             $amountOfItems += $item['quantity'];
         }
+
+        // Sla het aantal producten op in de sessie
         $session->set('amountOfItems', $amountOfItems);
+
+        // Werk het totaalbedrag bij in de database
         $shoppingCart->setTotal($total);
         $entityManager->persist($shoppingCart);
         $entityManager->flush();
+
+        // Toon de winkelwagenpagina
         return $this->render('cart/index.html.twig', [
             'items' => $items,
             'shoppingCart' => $shoppingCart,
@@ -47,14 +60,15 @@ final class CartController extends AbstractController
         $shoppingCart = $entityManager->getRepository(ShoppingCart::class)->findOneBy(['user' => $user]);
 
         if ($shoppingCart) {
-            // Decode JSON cart data
+            // Haal de huidige winkelwagengegevens op
             $shoppingCartData = $shoppingCart->getCartData();
 
-            // Ensure cart structure exists
+            // Zorg ervoor dat de structuur bestaat
             if (!isset($shoppingCartData['items'])) {
                 $shoppingCartData['items'] = [];
             }
 
+            // Maak een nieuw item aan
             $newItem = [
                 'product_id' => $id,
                 'product_name' => $entityManager->getRepository(Product::class)->find($id)->getName(),
@@ -62,9 +76,9 @@ final class CartController extends AbstractController
                 'quantity' => 1,
             ];
 
-            // Check if product already exists in cart
+            // Controleer of het product al in de winkelwagen zit
             $found = false;
-            foreach ($shoppingCartData['items'] as &$item) { // Use reference to modify array
+            foreach ($shoppingCartData['items'] as &$item) {
                 if ($item['product_id'] == $newItem['product_id']) {
                     $item['quantity'] += $newItem['quantity'];
                     $found = true;
@@ -72,18 +86,18 @@ final class CartController extends AbstractController
                 }
             }
 
-            // If item is not in the cart, add it
+            // Voeg het product toe als het nog niet in de winkelwagen zit
             if (!$found) {
                 $shoppingCartData['items'][] = $newItem;
             }
 
-            // Encode JSON and save back to database
+            // Werk de winkelwagen bij in de database
             $shoppingCart->setCartData($shoppingCartData);
             $shoppingCart->setUpdatedAt(new \DateTime());
             $entityManager->persist($shoppingCart);
             $entityManager->flush();
         } else {
-            // Create a new shopping cart if one doesn't exist
+            // Maak een nieuwe winkelwagen aan als deze nog niet bestaat
             $newCartData = [
                 "items" => [
                     [
@@ -102,6 +116,8 @@ final class CartController extends AbstractController
             $entityManager->flush();
         }
 
+        // Geef een succesbericht en ga terug naar de winkelwagenpagina
+        $this->addFlash('success', $entityManager->getRepository(Product::class)->find($id)->getName() . ' toegevoegd aan winkelwagen.');
         return $this->redirectToRoute('app_cart');
     }
 
@@ -111,12 +127,17 @@ final class CartController extends AbstractController
     {
         $user = $this->getUser();
         $shoppingCart = $entityManager->getRepository(ShoppingCart::class)->findOneBy(['user' => $user]);
+
         if (!$shoppingCart) {
-            $this->addFlash('error', 'Cart not found.');
+            $this->addFlash('error', 'Winkelwagen niet gevonden.');
             return $this->redirectToRoute('app_cart');
         }
+
+        // Haal de winkelwagengegevens op
         $cartData = $shoppingCart->getCartData();
         $items = $cartData['items'];
+
+        // Verwijder of verminder de hoeveelheid van het product
         foreach ($items as $key => $item) {
             if ($item['product_id'] == $id) {
                 if ($item['quantity'] > 1) {
@@ -126,12 +147,16 @@ final class CartController extends AbstractController
                 }
             }
         }
+
+        // Werk de winkelwagen bij en sla deze op in de database
         $cartData['items'] = array_values($items);
         $shoppingCart->setUpdatedAt(new \DateTime());
         $shoppingCart->setCartData($cartData);
         $entityManager->persist($shoppingCart);
         $entityManager->flush();
+
+        // Geef een melding en ga terug naar de winkelwagenpagina
+        $this->addFlash('danger', $entityManager->getRepository(Product::class)->find($id)->getName() . ' verwijderd uit winkelwagen.');
         return $this->redirectToRoute('app_cart');
     }
 }
-

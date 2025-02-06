@@ -12,27 +12,46 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class HomeController extends AbstractController
 {
+    // Route voor de homepage
     #[Route('/', name: 'app_home')]
     public function index(EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
+        // Haal de huidige gebruiker op
         $user = $this->getUser();
+
+        // Zoek het winkelwagentje van de gebruiker in de database
         $shoppingCart = $entityManager->getRepository(ShoppingCart::class)->findOneBy(['user' => $user]);
+
+        // Haal de gegevens van het winkelwagentje op
         $cartData = $shoppingCart->getCartData();
+
+        // Haal de items uit het winkelwagentje
         $items = $cartData['items'];
+
+        // Initialiseer de hoeveelheid items in het winkelwagentje
         $amountOfItems = 0;
+
+        // Loop door alle items om de totale hoeveelheid te berekenen
         foreach ($items as $item) {
             $amountOfItems += $item['quantity'];
         }
-        $session->set('amountOfItems', $amountOfItems);
-        return $this->render('home/index.html.twig', [
 
+        // Zet de hoeveelheid items in de sessie
+        $session->set('amountOfItems', $amountOfItems);
+
+        // Render de homepage weergave
+        return $this->render('home/index.html.twig', [
+            // Je kunt hier extra data toevoegen om naar de Twig template te sturen
         ]);
     }
+
+    // Route voor de 'over ons' pagina
     #[Route('/about', name: 'app_about')]
     public function about(): Response
     {
+        // Render de 'over ons' pagina
         return $this->render('home/about.html.twig', [
-
+            // Je kunt hier extra data toevoegen voor de Twig template
         ]);
     }
 }
