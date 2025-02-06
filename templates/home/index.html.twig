@@ -13,7 +13,7 @@
     <main>
         <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
         <p>Welcome to the Sanity shop!</p>
-        {% if "ROLE_ADMIN" in app.user.roles %}
+        {% if is_granted("ROLE_ADMIN") %}
             <a href="{{ path('app_admin') }}" class="btn btn-primary">Go to admin</a>
         {% endif %}
     </main>

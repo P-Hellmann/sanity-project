@@ -39,7 +39,7 @@
                     class="badge bg-danger cart-item-counter">{{ app.session.get("amountOfItems", 0) }}</span></a>
         {% if app.user %}
             <a href="{{ path('app_orders') }}" class="orders-btn">Orders</a>
-            {% if 'ROLE_ADMIN' in app.user.roles %}
+            {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('app_admin') }}" class="admin-btn">Admin</a>
             {% endif %}
         {% endif %}
