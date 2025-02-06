@@ -8,20 +8,57 @@
             list-style: none;
             padding: 0;
         }
+        td {
+            padding: 5px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            padding: 5px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
     </style>
     <body>
     <header>
         <h1>Sanity shop</h1>
     </header>
     <main>
-        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
-        <h2>Cart</h2>
-        <ul class="cart">
-            {% for item in items %}
-                <li>{{ item.product_name }} - {{ item.quantity }} x {{ item.price}}</li>
-            {% endfor %}
-            <li>Total: {{ shoppingCart.total}}</li>
-        </ul>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop Logo" class="banner">
+        <h2>Shopping Cart</h2>
+
+        <section class="cart">
+            {% if items %}
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{ item.product_name }}</td>
+                            <td>x{{ item.quantity }}</td>
+                            <td>${{ item.price | number_format(2) }}</td>
+                            <td><a href="{{ path('app_cart_remove', {'id': item.id}) }}">X</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="2"><strong>Total:</strong></td>
+                        <td><strong>${{ shoppingCart.total | number_format(2) }}</strong></td>
+                    </tr>
+                    </tfoot>
+                </table>
+            {% else %}
+                <p>Your cart is empty.</p>
+            {% endif %}
+        </section>
     </main>
+
     </body>
 {% endblock %}

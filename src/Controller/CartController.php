@@ -7,6 +7,7 @@ use App\Entity\ShoppingCart;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -14,17 +15,20 @@ final class CartController extends AbstractController
 {
     #[IsGranted('ROLE_USER')]
     #[Route('/cart', name: 'app_cart')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
         $user = $this->getUser();
         $shoppingCart = $entityManager->getRepository(ShoppingCart::class)->findOneBy(['user' => $user]);
         $cartData = $shoppingCart->getCartData();
         $items = $cartData['items'];
         $total = 0;
+        $amountOfItems = 0;
         foreach ($items as $item) {
             $product = $entityManager->getRepository(Product::class)->find($item['product_id']);
             $total += $product->getPrice() * $item['quantity'];
+            $amountOfItems += $item['quantity'];
         }
+        $session->set('amountOfItems', $amountOfItems);
         $shoppingCart->setTotal($total);
         $entityManager->persist($shoppingCart);
         $entityManager->flush();
