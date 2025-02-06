@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit {{ category.name }}{% endblock %}
+{% block title %}Admin Add Category{% endblock %}
 
 {% block body %}
     <style>
@@ -14,12 +14,12 @@
     </header>
     <main>
         <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
-        <h2>Edit category</h2>
-        <p>Please fill in the details you want to be updated</p>
-        {{ form_start(editCategoryForm) }}
-        {{ form_row(editCategoryForm.name) }}
-        {{ form_row(editCategoryForm.submit) }}
-        {{ form_end(editCategoryForm) }}
+        <h2>Add category</h2>
+        <p>Please fill in the details you want to be added</p>
+        {{ form_start(addCategoryForm) }}
+        {{ form_row(addCategoryForm.name) }}
+        {{ form_row(addCategoryForm.submit) }}
+        {{ form_end(addCategoryForm) }}
         <br>
         <br>
     </main>

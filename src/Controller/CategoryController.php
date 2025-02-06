@@ -83,4 +83,25 @@ final class CategoryController extends AbstractController
         // Redirect terug naar de administratiepagina voor categorieën
         return $this->redirectToRoute('app_admin_categories');
     }
+
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/admin/categories/add', name: 'app_admin_category_add')]
+    public function add(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $category = new Category();
+
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_admin_categories');
+        }
+
+        return $this->render('category/admin_add_category.html.twig', [
+            "addCategoryForm" => $form->createView(),
+        ]);
+    }
 }

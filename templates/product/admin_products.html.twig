@@ -32,13 +32,14 @@
             {% for product in products %}
                 <div class="card">
                     <h5>{{ product.name }}</h5>
-                    <p>{{ product.price }} USD</p>
-                    <a href="{{ path('app_product_show', {id: product.id}) }}" class="btn-secondary">View</a>
-                    <a href="{{ path('app_product_edit', {id: product.id}) }}" class="btn-primary">Edit</a>
-                    <a href="{{ path('app_product_delete', {id: product.id}) }}" class="btn-primary">Delete</a>
+                    <p>Price: {{ product.price }}</p>
+                    <a href="{{ path('app_admin_product_edit', {id: product.id}) }}" class="btn-secondary">Edit</a>
+                    <a href="{{ path('app_admin_product_delete', {id: product.id}) }}" class="btn-danger"
+                       onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
                 </div>
             {% endfor %}
         </div>
+        <a href="{{ path('app_admin_product_add') }}" class="btn-primary">Add New Product</a>
     </main>
     </body>
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Checkout{% endblock %}
+{% block title %}Admin Users{% endblock %}
 
 {% block body %}
     <style>
@@ -14,22 +14,26 @@
     </header>
     <main>
         <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop Logo" class="banner">
-        <h2>Thank You for Your Order!</h2>
+        <h2>Admin User List</h2>
         <section>
-            <strong> Order Information: </strong><br><br>
-            <p><strong>First Name:</strong> {{ order.firstName }}</p>
-            <p><strong>Last Name:</strong> {{ order.lastName }}</p>
-            <p><strong>Email:</strong> {{ order.email }}</p>
-            <p><strong>Address:</strong> {{ order.address }}</p>
-            <p><strong>Phone:</strong> {{ order.phone }}</p>
-            <p><strong>Total Price:</strong> ${{ order.totalPrice }}</p>
-            <h5>Items:</h5>
-                {% for item in order.items['items'] %}
-                    - {{ item.product_name }} - ${{ item.price }} x {{ item.quantity }}
-                {% endfor %}
+            <strong> Users: </strong><br><br>
+            {% for user in users %}
+                <p><strong>ID:</strong> {{ user.id }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Roles:</strong>
+                    {% for role in user.roles %}
+                    {{ role }}
+                    {% endfor %}
+                </p>
+                <p><strong>Orders:</strong>
+                    {% for order in user.orders %}
+                    ID:{{ order.id }}
+                    {% endfor %}</p>
+                <hr>
+            {% endfor %}
         </section>
         <br>
-        <a href="{{ path('app_categories') }}" class="btn-primary">Back to Shop</a>
+        <a href="{{ path('app_admin') }}" class="btn-primary">Back to Panel</a>
     </main>
     </body>
 {% endblock %}

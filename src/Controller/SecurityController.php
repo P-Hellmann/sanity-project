@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -28,5 +31,15 @@ class SecurityController extends AbstractController
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route(path: '/admin/users', name: 'app_admin_users')]
+    public function showUsers(EntityManagerInterface $entityManager): Response
+    {
+       $users = $entityManager->getRepository(User::class)->findAll();
+        return $this->render('security/admin_users.html.twig', [
+            'users' => $users,
+        ]);
     }
 }

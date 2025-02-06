@@ -14,11 +14,11 @@
         <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
         <h2>Welcome to the admin panel</h2>
         <p>You can manage your products here</p>
-        <a href="{{ path('app_admin_products') }}">Manage products</a>
-        <a href="{{ path('app_admin_categories') }}">Manage categories</a>
-        <a href="{{ path('app_admin_orders') }}">Manage orders</a>
-        <a href="{{ path('app_admin_users') }}">Manage users</a>
-        <a href="{{ path('app_logout') }}">Logout</a>
+        <a href="{{ path('app_admin_products') }}" class="btn btn-primary">Manage products</a>
+        <a href="{{ path('app_admin_categories') }}" class="btn btn-primary">Manage categories</a>
+        <a href="{{ path('app_admin_orders') }}" class="btn btn-primary">Manage orders</a>
+        <a href="{{ path('app_admin_users') }}" class="btn btn-primary">Manage users</a>
+        <a href="{{ path('app_logout') }}" class="btn btn-primary">Logout</a>
     </main>
     </body>
 {% endblock %}

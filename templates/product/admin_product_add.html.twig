@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin Product Edit{% endblock %}
+{% block title %}Admin Product Add{% endblock %}
 
 {% block body %}
     <style>
@@ -27,9 +27,8 @@
     </header>
     <main>
         <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
-        <h2>Product edit</h2>
         <div class="product">
-            {{ form_start(editProductForm) }}
+            {{ form(addProductForm) }}
         </div>
     </main>
     </body>
