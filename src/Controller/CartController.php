@@ -79,6 +79,7 @@ final class CartController extends AbstractController
 
             // Encode JSON and save back to database
             $shoppingCart->setCartData($shoppingCartData);
+            $shoppingCart->setUpdatedAt(new \DateTime());
             $entityManager->persist($shoppingCart);
             $entityManager->flush();
         } else {
@@ -103,4 +104,34 @@ final class CartController extends AbstractController
 
         return $this->redirectToRoute('app_cart');
     }
+
+    #[IsGranted('ROLE_USER')]
+    #[Route('/cart/remove/{id}', name: 'app_cart_remove')]
+    public function remove(EntityManagerInterface $entityManager, $id): Response
+    {
+        $user = $this->getUser();
+        $shoppingCart = $entityManager->getRepository(ShoppingCart::class)->findOneBy(['user' => $user]);
+        if (!$shoppingCart) {
+            $this->addFlash('error', 'Cart not found.');
+            return $this->redirectToRoute('app_cart');
+        }
+        $cartData = $shoppingCart->getCartData();
+        $items = $cartData['items'];
+        foreach ($items as $key => $item) {
+            if ($item['product_id'] == $id) {
+                if ($item['quantity'] > 1) {
+                    $items[$key]['quantity'] -= 1;
+                } else {
+                    unset($items[$key]);
+                }
+            }
+        }
+        $cartData['items'] = array_values($items);
+        $shoppingCart->setUpdatedAt(new \DateTime());
+        $shoppingCart->setCartData($cartData);
+        $entityManager->persist($shoppingCart);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_cart');
+    }
 }
+

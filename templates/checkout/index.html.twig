@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block body %}
+    <style>
+        main {
+            height: fit-content !important;
+        }
+    </style>
+    <body>
+    <header>
+        <h1>Sanity shop</h1>
+    </header>
+    <main>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
+        <h2>Checkout</h2>
+        <p>Please fill in your details</p>
+        {{ form_start(form) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.address) }}
+        {{ form_row(form.phone) }}
+        {{ form_row(form.comments) }}
+        {{ form_row(form.submit) }}
+        {{ form_end(form) }}
+        <br>
+        <br>
+    </main>
+    </body>
+{% endblock %}
