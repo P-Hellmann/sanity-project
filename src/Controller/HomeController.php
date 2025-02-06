@@ -17,28 +17,30 @@ final class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
-        // Haal de huidige gebruiker op
-        $user = $this->getUser();
+        if ($this->getUser()) {
+            // Haal de huidige gebruiker op
+            $user = $this->getUser();
 
-        // Zoek het winkelwagentje van de gebruiker in de database
-        $shoppingCart = $entityManager->getRepository(ShoppingCart::class)->findOneBy(['user' => $user]);
+            // Zoek het winkelwagentje van de gebruiker in de database
+            $shoppingCart = $entityManager->getRepository(ShoppingCart::class)->findOneBy(['user' => $user]);
 
-        // Haal de gegevens van het winkelwagentje op
-        $cartData = $shoppingCart->getCartData();
+            // Haal de gegevens van het winkelwagentje op
+            $cartData = $shoppingCart->getCartData();
 
-        // Haal de items uit het winkelwagentje
-        $items = $cartData['items'];
+            // Haal de items uit het winkelwagentje
+            $items = $cartData['items'];
 
-        // Initialiseer de hoeveelheid items in het winkelwagentje
-        $amountOfItems = 0;
+            // Initialiseer de hoeveelheid items in het winkelwagentje
+            $amountOfItems = 0;
 
-        // Loop door alle items om de totale hoeveelheid te berekenen
-        foreach ($items as $item) {
-            $amountOfItems += $item['quantity'];
+            // Loop door alle items om de totale hoeveelheid te berekenen
+            foreach ($items as $item) {
+                $amountOfItems += $item['quantity'];
+            }
+
+            // Zet de hoeveelheid items in de sessie
+            $session->set('amountOfItems', $amountOfItems);
         }
-
-        // Zet de hoeveelheid items in de sessie
-        $session->set('amountOfItems', $amountOfItems);
 
         // Render de homepage weergave
         return $this->render('home/index.html.twig', [
