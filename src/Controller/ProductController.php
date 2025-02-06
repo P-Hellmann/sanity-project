@@ -42,6 +42,7 @@ final class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($product);
             $entityManager->flush();
+            $this->addFlash('success', 'Product toegevoegd!');
             return $this->redirectToRoute('app_product_show', ['id' => $product->getId()]);
         }
 
@@ -59,6 +60,7 @@ final class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($product);
             $entityManager->flush();
+            $this->addFlash('success', 'Product gewijzigd!');
             // Redirect or return a response after editing
             return $this->redirectToRoute('app_product_show', ['id' => $product->getId()]);
         }
@@ -75,6 +77,7 @@ final class ProductController extends AbstractController
 
         $entityManager->remove($product);
         $entityManager->flush();
+        $this->addFlash('success', 'Product verwijderd!');
 
         // Redirect or return a response after deletion
         return $this->redirectToRoute('app_admin_products'); // Replace with actual listing route

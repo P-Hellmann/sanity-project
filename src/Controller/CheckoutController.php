@@ -127,6 +127,7 @@ final class CheckoutController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Sla de wijzigingen op in de database
             $entityManager->flush();
+            $this->addFlash( 'success', 'Bestelling gewijzigd!');
 
             // Redirect naar de administratiepagina
             return $this->redirectToRoute('app_admin_orders');
@@ -154,6 +155,7 @@ final class CheckoutController extends AbstractController
         // Verwijder de bestelling en sla de wijzigingen in de database op
         $entityManager->remove($order);
         $entityManager->flush();
+        $this->addFlash( 'success', 'Bestelling verwijderd!');
 
         // Redirect naar de administratiepagina
         return $this->redirectToRoute('app_admin_orders');

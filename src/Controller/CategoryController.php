@@ -62,6 +62,7 @@ final class CategoryController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            $this->addFlash( 'success', 'Categorie gewijzigd!');
             return $this->redirectToRoute('app_admin_categories');
         }
 
@@ -80,6 +81,7 @@ final class CategoryController extends AbstractController
         $entityManager->remove($category);
         $entityManager->flush();
 
+        $this->addFlash( 'success', 'Categorie verwijderd!');
         // Redirect terug naar de administratiepagina voor categorieën
         return $this->redirectToRoute('app_admin_categories');
     }
@@ -99,7 +101,7 @@ final class CategoryController extends AbstractController
 
             return $this->redirectToRoute('app_admin_categories');
         }
-
+        $this->addFlash( 'success', 'Categorie toegevoegd!');
         return $this->render('category/admin_add_category.html.twig', [
             "addCategoryForm" => $form->createView(),
         ]);

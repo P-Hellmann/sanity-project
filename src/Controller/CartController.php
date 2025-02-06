@@ -156,7 +156,7 @@ final class CartController extends AbstractController
         $entityManager->flush();
 
         // Geef een melding en ga terug naar de winkelwagenpagina
-        $this->addFlash('danger', $entityManager->getRepository(Product::class)->find($id)->getName() . ' verwijderd uit winkelwagen.');
+        $this->addFlash('success', $entityManager->getRepository(Product::class)->find($id)->getName() . ' verwijderd uit winkelwagen.');
         return $this->redirectToRoute('app_cart');
     }
 }
