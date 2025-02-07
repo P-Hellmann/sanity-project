@@ -3,16 +3,100 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <style>
+        body {
+            background-color: #353535;
+            color: #e6e6e6;
+            font-family: 'Arial', sans-serif;
+        }
 
-    {{ form_errors(registrationForm) }}
+        h1 {
+            text-align: center;
+            color: #ff6600;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.confirmPassword) }}
-    {{ form_row(registrationForm.agreeTerms, { 'label': 'Agree to our terms' }) }}
-        <br>
-        {{ form_row(registrationForm.submit) }}
-    {{ form_end(registrationForm) }}
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #515151;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-container input {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: #222;
+            color: #e6e6e6;
+            font-size: 1.1em;
+        }
+
+        .form-container input[type="submit"] {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #ff3300;
+        }
+
+        .form-container label {
+            font-size: 1.1em;
+            color: #ccc;
+        }
+
+        .form-container .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-container a {
+            display: block;
+            text-align: center;
+            color: #ff6600;
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+
+        .form-container a:hover {
+            color: #ff3300;
+        }
+    </style>
+
+    <div class="form-container">
+        <h1>Register for Sanity Shop</h1>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+        <div class="form-group">
+            {{ form_row(registrationForm.email) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(registrationForm.plainPassword) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(registrationForm.confirmPassword) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(registrationForm.agreeTerms, { 'label': 'Agree to our haunted terms' }) }}
+            <p><small><a href="{{ path('app_terms') }}" class="text-secondary">About our terms</a></small></p>
+        </div>
+        <div class="form-group">
+            {{ form_row(registrationForm.submit) }}
+        </div>
+        {{ form_end(registrationForm) }}
+
+        <a href="{{ path('app_home') }}">Back to Home</a>
+    </div>
 {% endblock %}

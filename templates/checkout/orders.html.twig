@@ -1,38 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Orders{% endblock %}
+{% block title %}Your Orders - Sanity Shop{% endblock %}
 
 {% block body %}
     <style>
         main {
             height: fit-content !important;
         }
+        .order-section {
+            background-color: black;
+            color: white;
+            border: 2px solid #ff6600;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .order-section h5 {
+            margin-top: 10px;
+            font-size: 1.3em;
+        }
+        .order-details p {
+            margin: 5px 0;
+        }
+        .btn-primary {
+            background: #ff6600;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            padding: 10px 15px;
+            transition: 0.3s;
+        }
+        .btn-primary:hover {
+            background: white;
+            color: black;
+        }
     </style>
     <body>
     <header>
-        <h1>Sanity shop</h1>
+        <h1 style="text-align: center;">Sanity Shop – Orders from the Beyond</h1>
     </header>
     <main>
-        <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop Logo" class="banner">
-        <h2>Your Orders</h2>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop Logo" class="banner" style="display: block; margin: 0 auto;">
+        <h2 style="text-align: center;">Your Orders – Are You Sure You Ordered That?</h2>
+
         {% for order in orders %}
-            <section>
+            <section class="order-section">
                 <strong> Order Information: </strong><br><br>
-                <p><strong>First Name:</strong> {{ order.firstName }}</p>
-                <p><strong>Last Name:</strong> {{ order.lastName }}</p>
-                <p><strong>Email:</strong> {{ order.email }}</p>
-                <p><strong>Address:</strong> {{ order.address }}</p>
-                <p><strong>Phone:</strong> {{ order.phone }}</p>
-                <p><strong>Total Price:</strong> ${{ order.totalPrice }}</p>
-                <h5>Items:</h5>
+                <div class="order-details">
+                    <p><strong>First Name:</strong> {{ order.firstName }}</p>
+                    <p><strong>Last Name:</strong> {{ order.lastName }}</p>
+                    <p><strong>Email:</strong> {{ order.email }}</p>
+                    <p><strong>Address:</strong> {{ order.address }}</p>
+                    <p><strong>Phone:</strong> {{ order.phone }}</p>
+                    <p><strong>Total Price:</strong> ${{ order.totalPrice }}</p>
+                </div>
+
+                <h5>Items in Your Order (Proceed with Caution):</h5>
                 {% for item in order.items['items'] %}
-                    - {{ item.product_name }} - ${{ item.price }} x {{ item.quantity }}
+                    <p>- {{ item.product_name }} - ${{ item.price }} x {{ item.quantity }}</p>
                 {% endfor %}
             </section>
-            <br>
-            <hr>
+            <hr style="border: 1px solid #ff6600;">
         {% endfor %}
-        <a href="{{ path('app_categories') }}" class="btn-primary">Back to Shop</a>
+
+        <a href="{{ path('app_categories') }}" class="btn-primary" style="display: block; text-align: center; margin-top: 20px;">
+            Back to Shop (Before You Summon Any More Demons)
+        </a>
     </main>
     </body>
 {% endblock %}

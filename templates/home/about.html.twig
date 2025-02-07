@@ -1,27 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}About{% endblock %}
+{% block title %}About - Sanity Shop{% endblock %}
 
 {% block body %}
     <style>
+        body {
+            background: #222;
+            text-align: center;
+        }
+        header h1 {
+            color: #ff6600;
+            font-size: 3em;
+            text-shadow: 3px 3px 5px #ff6600;
+        }
+        h2 {
+            color: #ff6600;
+            font-size: 2.5em;
+            margin-top: 20px;
+            text-shadow: 2px 2px 3px #ff6600;
+        }
+        .banner {
+            width: 100%;
+            margin-bottom: 20px;
+            border-bottom: 5px solid #ff6600;
+        }
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            color: #000000;
+        }
+        p b {
+            color: #ff6600;
+        }
+        .disclaimer {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px dashed #ff6600;
+            margin-top: 20px;
+            color: #ffcc00;
+        }
+        .ghostly-text {
+            font-style: italic;
+            color: #ff6600;
+            text-shadow: 2px 2px 5px #ffcc00;
+        }
+        .highlight {
+            color: #ffcc00;
+            font-weight: bold;
+        }
     </style>
     <body>
     <header>
-        <h1>Sanity shop</h1>
+        <h1>Sanity Shop - Where the Dead Shop!</h1>
     </header>
     <main>
-        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
-        <h2>About</h2>
-        <p>Welcome to Sanity Shop, where we bring the “boo” to your budget! Got a haunted house with ghosts that won’t
-            pay rent? We’ve got just the thing for that.</p>
-        <p>Our shelves are stocked with ghost-repellent sprays, banshee earplugs, and the latest in specter-chasing
-            technology. Trying to chat with a poltergeist? Check out our deluxe Ouiji boards—now with typo-correcting
-            planchettes!</p>
-        <p>Headed to a graveyard at midnight? Don’t forget our glow-in-the-dark salt circles and anti-possession thermal
-            blankets. They’re a must-have for anyone dealing with cranky spirits.</p>
-        <p>We believe every ghost hunter deserves quality gear—because nothing ruins a good haunting like being
-            unprepared.</p>
-        <p>So gear up, stay sane, and remember: the dead don’t rest, but at least you can—with our haunted-approved
-            sleep masks! <b>Disclaimer: They don't block the noise.</b></p></main>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop logo" class="banner">
+        <h2>About Us - Your One Stop for Ghostly Goods</h2>
+        <p>Welcome to <span class="highlight">Sanity Shop</span>, where we bring the “boo” to your budget! Got a haunted house with ghosts that won’t pay rent? We’ve got just the thing for that.</p>
+        <p>Our shelves are stocked with <span class="ghostly-text">ghost-repellent sprays</span>, <span class="ghostly-text">banshee earplugs</span>, and the latest in <span class="ghostly-text">specter-chasing technology</span>. Trying to chat with a poltergeist? Check out our deluxe Ouija boards—now with typo-correcting planchettes!</p>
+        <p>Headed to a graveyard at midnight? Don’t forget our <span class="ghostly-text">glow-in-the-dark salt circles</span> and <span class="ghostly-text">anti-possession thermal blankets</span>. They’re a must-have for anyone dealing with cranky spirits.</p>
+        <p>We believe every ghost hunter deserves quality gear—because nothing ruins a good haunting like being unprepared. </p>
+        <p>So gear up, stay sane, and remember: the dead don’t rest, but at least you can—with our haunted-approved sleep masks!</p>
+        <div class="disclaimer">
+            <b>Disclaimer:</b> They don't block the noise... but they’ll block your nightmares.
+        </div>
+    </main>
     </body>
 {% endblock %}

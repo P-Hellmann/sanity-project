@@ -1,37 +1,117 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin Order Edit{% endblock %}
+{% block title %}Admin Order Edit - Sanity Shop{% endblock %}
 
 {% block body %}
     <style>
         main {
             height: fit-content !important;
+            background: #111;
+            color: white;
+            padding: 30px 0;
+        }
+        section {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #ff6600;
+            box-shadow: 0 0 15px #ff6600;
+        }
+        h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #ff6600;
+        }
+        .btn-primary {
+            background: #ff6600;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 12px 20px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+        .btn-primary:hover {
+            background: white;
+            color: black;
+        }
+        .form-row {
+            margin-bottom: 15px;
+        }
+        label {
+            font-size: 1.1em;
+            color: #ff6600;
+        }
+        input, textarea {
+            background: #333;
+            border: 1px solid #ff6600;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background: #ffcc00;
+            color: black;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background: #ff6600;
+            color: white;
         }
     </style>
+
     <body>
     <header>
-        <h1>Sanity shop</h1>
+        <h1 style="text-align: center;">Sanity Shop - Edit Order (Proceed at Your Own Risk)</h1>
     </header>
     <main>
-        <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop Logo" class="banner">
-        <h2>All Orders</h2>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop Logo" class="banner" style="display: block; margin: 0 auto;">
+        <h2>Edit Order (Don’t Let the Ghosts Edit It for You)</h2>
         <section>
             {{ form_start(form) }}
-            {{ form_row(form.firstname) }}
-            {{ form_row(form.lastname) }}
-            {{ form_row(form.email) }}
-            {{ form_row(form.address) }}
-            {{ form_row(form.city) }}
-            {{ form_row(form.phone) }}
-            {{ form_row(form.comments) }}
-            {{ form_row(form.items) }}
-            {{ form_row(form.dateoforder) }}
-            {{ form_errors(form.user) }}
-            {{ form_row(form.submit) }}
+            <div class="form-row">
+                {{ form_row(form.firstname) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.lastname) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.email) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.address) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.city) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.phone) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.comments) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.items) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.dateoforder) }}
+            </div>
+            <div class="form-row">
+                {{ form_errors(form.user) }}
+            </div>
+            <div class="form-row">
+                {{ form_row(form.submit) }}
+            </div>
             {{ form_end(form) }}
         </section>
         <br>
-        <a href="{{ path('app_admin') }}" class="btn-primary">Back to Dashboard</a>
+        <a href="{{ path('app_admin') }}" class="btn-primary">Back to Dashboard (Unless You Prefer to Stay Here)</a>
     </main>
     </body>
 {% endblock %}

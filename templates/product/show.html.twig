@@ -5,24 +5,48 @@
 {% block body %}
     <style>
         .product {
-
+            text-align: center;
+            margin-top: 20px;
+        }
+        .product img {
+            max-width: 80%;
+            height: auto;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #ff6600;
+        }
+        .product-info {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        .btn-primary {
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            background-color: #ff6600;
+            color: black;
         }
     </style>
     <body>
     <header>
-        <h1>Sanity shop</h1>
+        <h1 style="text-align: center;">Sanity Shop</h1>
     </header>
     <main>
-        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop logo" class="banner">
         <div class="product">
             <h2>{{ product.name }}</h2>
-            <p>{{ product.description }}</p>
-            <p>€ {{ product.price }}</p>
-            <p>Stock: {{ product.stock }}</p>
-            <p>Category: <a href="{{ path('app_category_show', {id: product.category.id }) }}" class="text-primary">{{ product.category.name }}</a></p>
+            <p class="product-info">{{ product.description }}</p>
+            <p class="product-info"><span class="highlight">€ {{ product.price }}</span></p>
+            <p class="product-info">Stock: {{ product.stock }}</p>
+            <p class="product-info">Category: <a href="{{ path('app_category_show', {id: product.category.id }) }}" class="text-primary">{{ product.category.name }}</a></p>
         </div>
         <a href="{{ path('app_category_show', {id: product.category.id }) }}" class="btn btn-primary">Back to {{ product.category.name }}</a>
-        <form action="{{ path('app_cart_add', {id: product.id }) }}" method="post">
+        <form action="{{ path('app_cart_add', {id: product.id }) }}" method="post" style="margin-top: 20px;">
             <input type="submit" value="Add to cart" class="btn btn-primary">
         </form>
     </main>

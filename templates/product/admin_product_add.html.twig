@@ -4,31 +4,87 @@
 
 {% block body %}
     <style>
-    .product {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-    }
-    h5 {
-        text-align: center;
-    }
-    .card {
-        margin: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 200px;
-        height: 250px;
-        text-align: center;
-    }
+        .product-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-form h3 {
+            text-align: center;
+            color: #ff6600;
+            font-size: 1.8em;
+        }
+
+        .product-form label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .product-form input, .product-form select, .product-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1.1em;
+        }
+
+        .product-form input[type="submit"] {
+            background-color: #ff6600;
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .product-form input[type="submit"]:hover {
+            background-color: #ff3300;
+        }
+
+        .product-form a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #ff6600;
+            text-decoration: none;
+        }
+
+        .product-form a:hover {
+            color: #ff3300;
+        }
     </style>
+
     <body>
     <header>
-        <h1>Sanity shop</h1>
+        <h1 style="text-align: center;">Sanity Shop - Admin</h1>
     </header>
     <main>
-        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
-        <div class="product">
-            {{ form(addProductForm) }}
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop Logo" class="banner">
+        <div class="product-form">
+            <h3>Add New Product</h3>
+
+            {{ form_start(addProductForm) }}
+
+            <div class="form-group">
+                {{ form_row(addProductForm.name) }}
+                {{ form_row(addProductForm.description) }}
+                {{ form_row(addProductForm.price) }}
+                {{ form_row(addProductForm.stock) }}
+                {{ form_row(addProductForm.category) }}
+                {{ form_row(addProductForm.submit) }}
+            </div>
+
+            {{ form_end(addProductForm) }}
+
+            <a href="{{ path('app_admin_products') }}">Back to Product List</a>
         </div>
     </main>
     </body>

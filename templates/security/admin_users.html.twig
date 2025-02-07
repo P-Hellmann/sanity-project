@@ -7,46 +7,104 @@
         main {
             height: fit-content !important;
         }
+        .user-details {
+            background-color: #333;
+            color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #444;
+        }
+        .user-details p {
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+        .user-details strong {
+            color: #ff6600;
+        }
+        .user-orders {
+            margin-top: 15px;
+        }
+        .order-item {
+            padding: 5px;
+            background-color: #444;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .order-item p {
+            margin: 2px 0;
+        }
+        .order-item .item-list {
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .order-item .date {
+            font-size: 0.9em;
+            color: #ccc;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        .back-btn {
+            margin-top: 20px;
+        }
     </style>
+
     <body>
     <header>
-        <h1>Sanity shop</h1>
+        <h1>Sanity Shop</h1>
     </header>
     <main>
         <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop Logo" class="banner">
         <h2>Admin User List</h2>
-        {{ form(searchbar) }}<br>
+        <a href="{{ path('app_admin') }}" class="btn-primary back-btn">Back to Panel</a>
+        <br>
+        <br>
+        <div class="search-bar">
+            {{ form(searchbar) }}
+        </div>
+
         <section>
-            <strong> Users: </strong><br><br>
+            <strong>Users:</strong><br><br>
+
             {% for user in users %}
-                <p><strong>ID:</strong> {{ user.id }}</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Roles:</strong>
-                    {% for role in user.roles %}
-                    {{ role }}
-                    {% endfor %}
-                </p>
-                <p><strong>Orders:</strong><br>
-                    {% for order in user.orders %}
-                        ID: {{ order.id }}<br>
-                        Address: {{ order.address }}<br>
-                        Phone: 0{{ order.phone }}<br>
-                        First Name: {{ order.firstName }}<br>
-                        Last Name: {{ order.lastName }}<br>
-                        Email: {{ order.email }}<br>
-                        Total price: ${{ order.totalPrice }}<br>
-                        items:<br> {% for item in order.items["items"] %}
-                        - {{ item.product_name }} x{{ item.quantity }}
-                        {% endfor %}<br>
-                        Date of Order: {{ order.dateOfOrder|date('d-m-Y H:i') }}
-                        <br>
-                        ------
-                    {% endfor %}</p>
-                <hr>
+                <div class="user-details">
+                    <p><strong>ID:</strong> {{ user.id }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Roles:</strong>
+                        {% for role in user.roles %}
+                            {{ role }}
+                        {% endfor %}
+                    </p>
+
+                    <div class="user-orders">
+                        <strong>Orders:</strong><br>
+
+                        {% for order in user.orders %}
+                            <div class="order-item">
+                                <p><strong>Order ID:</strong> {{ order.id }}</p>
+                                <p><strong>Address:</strong> {{ order.address }}</p>
+                                <p><strong>Phone:</strong> 0{{ order.phone }}</p>
+                                <p><strong>First Name:</strong> {{ order.firstName }}</p>
+                                <p><strong>Last Name:</strong> {{ order.lastName }}</p>
+                                <p><strong>Email:</strong> {{ order.email }}</p>
+                                <p><strong>Total Price:</strong> ${{ order.totalPrice }}</p>
+
+                                <div class="item-list">
+                                    <strong>Items:</strong><br>
+                                    {% for item in order.items['items'] %}
+                                        <p>- {{ item.product_name }} x{{ item.quantity }}</p>
+                                    {% endfor %}
+                                </div>
+                                <p class="date"><strong>Date of Order:</strong> {{ order.dateOfOrder|date('d-m-Y H:i') }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <hr>
+                </div>
             {% endfor %}
         </section>
-        <br>
-        <a href="{{ path('app_admin') }}" class="btn-primary">Back to Panel</a>
     </main>
     </body>
 {% endblock %}

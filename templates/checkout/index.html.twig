@@ -1,32 +1,96 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Checkout{% endblock %}
+{% block title %}Checkout - Sanity Shop{% endblock %}
 
 {% block body %}
     <style>
         main {
             height: fit-content !important;
+            background: #333;
+            color: white;
+            padding: 30px 0;
+        }
+        .checkout-section {
+            background: black;
+            padding: 20px;
+            border: 2px solid #ff6600;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ff6600;
+        }
+        p {
+            text-align: center;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .btn-primary {
+            background: #ff6600;
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            padding: 12px 20px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .btn-primary:hover {
+            background: white;
+            color: black;
         }
     </style>
     <body>
     <header>
-        <h1>Sanity shop</h1>
+        <h1 style="text-align: center;">Sanity Shop – Checkout (Proceed at Your Own Risk)</h1>
     </header>
     <main>
-        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
-        <h2>Checkout</h2>
-        <p>Please fill in your details</p>
-        {{ form_start(form) }}
-        {{ form_row(form.firstname) }}
-        {{ form_row(form.lastname) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.address) }}
-        {{ form_row(form.phone) }}
-        {{ form_row(form.comments) }}
-        {{ form_row(form.submit) }}
-        {{ form_end(form) }}
-        <br>
-        <br>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop logo" class="banner" style="display: block; margin: 0 auto;">
+        <h2>Checkout – Are You Sure You Want to Enter the Unknown?</h2>
+        <p style="text-align: center;" class="text-secondary">Please fill in your details, and prepare for the haunted delivery process.</p>
+
+        <div class="checkout-section">
+            {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_row(form.firstname) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.lastname) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.email) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.address) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.phone) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_row(form.comments) }}
+            </div>
+
+            <div class="form-group">
+                <label for="submit"></label>
+                {{ form_row(form.submit, {'label': 'Complete Your Purchase (Or Else…)'}) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+
+        <br><br>
     </main>
     </body>
 {% endblock %}

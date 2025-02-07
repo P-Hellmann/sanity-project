@@ -8,20 +8,72 @@
             list-style: none;
             padding: 0;
         }
-        td {
-            padding: 5px;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            padding: 10px;
             border: 1px solid #ccc;
             text-align: center;
         }
+
         th {
-            padding: 5px;
-            border: 1px solid #ccc;
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        .total-row td {
+            font-weight: bold;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 1.1em;
+            margin-top: 20px;
+            border-radius: 5px;
+            display: inline-block;
             text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: #ff6600;
+            color: black;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #cc5200;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .remove-btn {
+            color: #ff0000;
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            color: #cc0000;
         }
     </style>
+
     <body>
     <header>
-        <h1>Sanity shop</h1>
+        <h1>Sanity Shop</h1>
     </header>
     <main>
         <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop Logo" class="banner">
@@ -44,12 +96,12 @@
                             <td>{{ item.product_name }}</td>
                             <td>x{{ item.quantity }}</td>
                             <td>${{ item.price | number_format(2) }}</td>
-                            <td><a href="{{ path('app_cart_remove', {'id': item.product_id}) }}" class="text-secondary">X</a></td>
+                            <td><a href="{{ path('app_cart_remove', {'id': item.product_id}) }}" class="remove-btn">X</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
                     <tfoot>
-                    <tr>
+                    <tr class="total-row">
                         <td colspan="2"><strong>Total:</strong></td>
                         <td><strong>${{ shoppingCart.total | number_format(2) }}</strong></td>
                     </tr>
@@ -59,9 +111,8 @@
                 <p>Your cart is empty.</p>
             {% endif %}
             <a href="{{ path('app_categories') }}" class="btn btn-primary">Continue Shopping</a>
-            <a href="{{ path('app_checkout') }}" class="btn btn-success">Checkout</a>
+            <a href="{{ path('app_checkout') }}" class="btn btn-success">Proceed to Checkout</a>
         </section>
     </main>
-
     </body>
 {% endblock %}

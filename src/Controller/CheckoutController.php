@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Entity\ShoppingCart;
 use App\Entity\Order;
 use App\Form\AdminOrderType;
@@ -46,6 +47,17 @@ final class CheckoutController extends AbstractController
 
             // Sla de bestelling op in de database
             $entityManager->persist($order);
+            $entityManager->flush();
+
+            foreach ($items['items'] as $item) {
+                $productInCart = $entityManager->getRepository(Product::class)->find($item['product_id']);
+                $productInCart->setStock($productInCart->getStock() - $item['quantity']);
+                $entityManager->persist($productInCart);
+                $entityManager->flush();
+            }
+
+            $shoppingCart->setCartData(['items' => []]);
+            $entityManager->persist($shoppingCart);
             $entityManager->flush();
 
             // Redirect naar de bevestigingspagina
