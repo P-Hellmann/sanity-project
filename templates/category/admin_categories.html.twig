@@ -4,31 +4,113 @@
 
 {% block body %}
     <style>
-    .categories {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-    }
-    h5 {
-        text-align: center;
-    }
-    .card {
-        margin: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 200px;
-        height: 250px;
-        text-align: center;
-    }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .banner {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        main {
+            padding: 20px;
+            background-color: white;
+        }
+        h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .btn-primary, .btn-warning, .btn-danger {
+            padding: 10px 20px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+            color: black;
+        }
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 20px;
+        }
+        .card {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 320px;
+            height: 410px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .card h5 {
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .card p {
+            color: #555;
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+        .card a {
+            display: block;
+            margin-top: 10px;
+        }
     </style>
+
     <body>
     <header>
-        <h1>Sanity shop</h1>
+        <h1>Sanity Shop - Admin Panel</h1>
     </header>
+
     <main>
-        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
-        <h2>Categories</h2>
-        <a href="{{ path('app_admin_category_add') }}" class="btn-primary">Add new category</a>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop logo" class="banner">
+        <h2>Manage Categories</h2>
+
+        <a href="{{ path('app_admin_category_add') }}" class="btn-primary">Add New Category</a><br><br>
         <div class="categories">
             {% for category in categories %}
                 <div class="card">
