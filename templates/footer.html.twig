@@ -1,0 +1,38 @@
+<style>
+    footer {
+        background-color: #222;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+
+    footer a {
+        color: #ff6600;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 1.1em;
+    }
+
+    footer a:hover {
+        color: #cc5200;
+    }
+
+    .footer-text {
+        margin-top: 15px;
+        font-size: 0.9em;
+    }
+</style>
+
+<footer>
+    <div>
+        <a href="{{ path('app_about') }}">About</a>
+        <a href="{{ path('app_terms') }}">Terms Of Service</a>
+        <a href="{{ path('app_contact') }}">Contact</a>
+    </div>
+    <div class="footer-text">
+        <p>&copy; 2025 Sanity Shop. All Rights Reserved.</p>
+    </div>
+</footer>

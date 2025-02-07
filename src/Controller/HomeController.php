@@ -64,6 +64,11 @@ final class HomeController extends AbstractController
 
         ]);
     }
+    #[Route('/contact', name: 'app_contact')]
+    public function privacy(): Response
+    {
+        return $this->render('home/contact.html.twig', []);
+    }
 
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin', name: 'app_admin')]
