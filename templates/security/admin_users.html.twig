@@ -15,6 +15,7 @@
     <main>
         <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop Logo" class="banner">
         <h2>Admin User List</h2>
+        {{ form(searchbar) }}<br>
         <section>
             <strong> Users: </strong><br><br>
             {% for user in users %}
