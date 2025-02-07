@@ -66,6 +66,8 @@
         <a href="/about" class="about-btn">About</a>
         <a href="/contact" class="contact-btn">Contact</a>
         <a href="/categories" class="categories-btn">Categories</a>
+    </div>
+    <div class="right-wrapper">
         <a href="/cart" class="cart-btn">
             <img src="{{ asset('images/cart.png') }}" class="cart-icon">
             <span class="badge cart-item-counter">{{ app.session.get("amountOfItems", 0) }}</span>
@@ -76,8 +78,6 @@
                 <a href="{{ path('app_admin') }}" class="admin-btn">Admin</a>
             {% endif %}
         {% endif %}
-    </div>
-    <div class="right-wrapper">
         {% if app.user %}
             <a href="/logout" class="logout-btn">Logout</a>
         {% else %}
