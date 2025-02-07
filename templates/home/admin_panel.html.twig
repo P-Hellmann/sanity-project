@@ -1,24 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin panel{% endblock %}
+{% block title %}Admin Panel - Sanity Shop{% endblock %}
 
 {% block body %}
     <style>
-
+        .banner {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .admin-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .admin-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn-ghost {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            background: black;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-ghost:hover {
+            background: #ff6600;
+            color: black;
+        }
     </style>
     <body>
     <header>
-        <h1>Sanity shop</h1>
+        <h1 style="text-align: center;">Sanity Shop – Admin Panel (A.K.A. The Hunter's HQ)</h1>
     </header>
-    <main>
-        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
-        <h2>Welcome to the admin panel</h2>
-        <p>You can manage your products here</p>
-        <a href="{{ path('app_admin_products') }}" class="btn btn-primary">Manage products</a>
-        <a href="{{ path('app_admin_categories') }}" class="btn btn-primary">Manage categories</a>
-        <a href="{{ path('app_admin_orders') }}" class="btn btn-primary">Manage orders</a>
-        <a href="{{ path('app_admin_users') }}" class="btn btn-primary">Manage users</a>
-        <a href="{{ path('app_logout') }}" class="btn btn-primary">Logout</a>
+    <main class="admin-container">
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop logo" class="banner">
+        <h2>Welcome to the Admin Panel</h2>
+        <p class="admin-text">You are the guardian of sanity (or at least the inventory). Manage your haunted wares with caution.</p>
+
+        <div class="btn-container">
+            <a href="{{ path('app_admin_products') }}" class="btn-ghost">Manage Products (Holy Water, Salt & More)</a>
+            <a href="{{ path('app_admin_categories') }}" class="btn-ghost">Manage Categories (Haunted? Cursed? Possessed?)</a>
+            <a href="{{ path('app_admin_orders') }}" class="btn-ghost">Manage Orders (Because Demons Don't Do Refunds)</a>
+            <a href="{{ path('app_admin_users') }}" class="btn-ghost">Manage Users (Check for Possessed Accounts)</a>
+            <a href="{{ path('app_logout') }}" class="btn-ghost">Logout (Exorcise yourself)</a>
+        </div>
     </main>
     </body>
 {% endblock %}

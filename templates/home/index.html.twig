@@ -1,20 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Home - Sanity Shop{% endblock %}
 
 {% block body %}
     <style>
-
+        .banner {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .welcome-text {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #ff6600;
+        }
+        .btn-ghost-hunt {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            background: black;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-ghost-hunt:hover {
+            background: #ff6600;
+            color: black;
+        }
     </style>
     <body>
     <header>
-        <h1>Sanity shop</h1>
+        <h1 style="text-align: center;">Sanity Shop – Saving Your Soul Since… Well, Hopefully.</h1>
     </header>
     <main>
-        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
-        <p>Welcome to the Sanity shop!</p>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity Shop logo" class="banner">
+        <p class="welcome-text">
+            Welcome to <span class="highlight">Sanity Shop</span>, your one-stop haunt shop for all things spooky and supernatural!
+            Whether you're dealing with a mischievous poltergeist, a grumpy demon, or just a really bad roommate, we've got the tools to help.
+        </p>
+        <p class="welcome-text">
+            Stock up on <span class="highlight">salt (now in convenient travel packs!)</span>,
+            <span class="highlight">holy water (blessed by only the finest professionals)</span>,
+            and <span class="highlight">EMF detectors (now 30% less likely to explode!)</span>.
+        </p>
+        <p class="welcome-text">
+            Need to banish a demon? Don’t forget our new <span class="highlight">"Winchester-Approved Exorcism Kit"</span>,
+            guaranteed to work… probably. No refunds if you get possessed.
+        </p>
+
+        <a href="{{ path('app_categories') }}" class="btn-ghost-hunt">Start Your Ghost Hunt</a>
+
         {% if is_granted("ROLE_ADMIN") %}
-            <a href="{{ path('app_admin') }}" class="btn btn-primary">Go to admin</a>
+            <a href="{{ path('app_admin') }}" class="btn btn-primary" style="display: block; text-align: center; margin-top: 20px;">
+                Go to Admin (Because Even Hunters Need a HQ)
+            </a>
         {% endif %}
     </main>
     </body>

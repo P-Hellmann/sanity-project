@@ -3,26 +3,16 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <style>
+    <h1>Register</h1>
 
-    </style>
-    <body>
-    <header>
-        <h1>Register</h1>
-    </header>
-    <main>
-        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
-        {{ form_errors(registrationForm) }}
+    {{ form_errors(registrationForm) }}
 
-        {{ form_start(registrationForm) }}
+    {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword) }}
         {{ form_row(registrationForm.confirmPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-        <p><small><a href="{{ path('app_terms') }}" class="text-secondary">Terms Info</a></small></p>
+    {{ form_row(registrationForm.agreeTerms, { 'label': 'Agree to our terms' }) }}
         <br>
         {{ form_row(registrationForm.submit) }}
-        {{ form_end(registrationForm) }}
-    </main>
-    </body>
+    {{ form_end(registrationForm) }}
 {% endblock %}
