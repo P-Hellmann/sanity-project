@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 07 feb 2025 om 11:52
+-- Gegenereerd op: 07 feb 2025 om 13:01
 -- Serverversie: 10.4.32-MariaDB
 -- PHP-versie: 8.2.12
 
@@ -124,7 +124,10 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`id`, `totalprice`, `address`, `phone`, `comments`, `dateoforder`, `firstname`, `lastname`, `email`, `items`, `user_id`) VALUES
-(4, 8.50, 'adminstreet 11', 612345678, 'no', '2025-02-06 14:04:22', 'admin', 'admin', 'admin1@admin.com', '{\"items\":[{\"product_id\":\"1\",\"product_name\":\"Flashlight\",\"price\":\"8.50\",\"quantity\":1}]}', 1);
+(4, 8.50, 'adminstreet 11', 612345678, 'no', '2025-02-06 14:04:22', 'admin', 'admin', 'admin1@admin.com', '{\"items\":[{\"product_id\":\"1\",\"product_name\":\"Flashlight\",\"price\":\"8.50\",\"quantity\":1}]}', 1),
+(5, 8.50, 'adminstreet 11', 683351854, 'no', '2025-02-07 12:09:05', 'admin', 'admin', 'admin1@admin.com', '{\"items\":[{\"product_id\":\"1\",\"product_name\":\"Flashlight\",\"price\":\"8.50\",\"quantity\":1}]}', 1),
+(6, 8.50, 'adminstreet 11', 612345678, 'no', '2025-02-07 12:55:57', 'admin', 'admin', 'admin1@admin.com', '{\"items\":[{\"product_id\":\"1\",\"product_name\":\"Flashlight\",\"price\":\"8.50\",\"quantity\":1}]}', 1),
+(7, 8.50, 'adminstreet 11', 612345678, NULL, '2025-02-07 12:57:59', 'admin', 'admin', 'admin1@admin.com', '{\"items\":[{\"product_id\":\"1\",\"product_name\":\"Flashlight\",\"price\":\"8.50\",\"quantity\":1}]}', 1);
 
 -- --------------------------------------------------------
 
@@ -146,7 +149,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `price`, `stock`, `category_id`, `description`) VALUES
-(1, 'Flashlight', 8.50, 9999, 1, NULL),
+(1, 'Flashlight', 8.50, 9997, 1, NULL),
 (2, 'Sanity Pills', 19.99, 9999, 2, NULL),
 (3, 'Incense', 9.99, 9999, 3, NULL),
 (4, 'Crucifix', 14.99, 9999, 4, NULL),
@@ -198,7 +201,7 @@ CREATE TABLE `shopping_cart` (
 --
 
 INSERT INTO `shopping_cart` (`id`, `cart_data`, `updated_at`, `user_id`, `total`) VALUES
-(2, '{\"items\":[{\"product_id\":\"1\",\"product_name\":\"Flashlight\",\"price\":\"8.50\",\"quantity\":1}]}', '2025-02-07 11:42:00', 1, 8.50),
+(2, '{\"items\":[]}', '2025-02-07 12:58:17', 1, 0.00),
 (5, '{\"items\":[]}', NULL, 4, 0.00);
 
 -- --------------------------------------------------------
@@ -295,7 +298,7 @@ ALTER TABLE `messenger_messages`
 -- AUTO_INCREMENT voor een tabel `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT voor een tabel `product`
