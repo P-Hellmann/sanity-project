@@ -22,13 +22,6 @@ final class CartController extends AbstractController
 
         // Zoek het winkelwagentje van de gebruiker
         $shoppingCart = $entityManager->getRepository(ShoppingCart::class)->findOneBy(['user' => $user]);
-        if (!$shoppingCart) {
-            $shoppingCart = new ShoppingCart();
-            $shoppingCart->setUser($user);
-            $shoppingCart->setCartData(['items' => []]);
-            $entityManager->persist($shoppingCart);
-            $entityManager->flush();
-        }
 
         // Haal de winkelwagengegevens op
         $cartData = $shoppingCart->getCartData();

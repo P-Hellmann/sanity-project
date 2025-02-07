@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ShoppingCart;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,12 +25,27 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
+            $confirmPassword = $form->get('confirmPassword')->getData();
 
-            // encode the plain password
-            $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+            if ($plainPassword !== $confirmPassword) {
+                $this->addFlash('error', 'Wachtwoorden komen niet overeen!');
+            } else {
+                // encode the plain password
+                $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                // Zoek het winkelwagentje van de gebruiker
+                $shoppingCart = $entityManager->getRepository(ShoppingCart::class)->findOneBy(['user' => $user]);
+                if (!$shoppingCart) {
+                    $shoppingCart = new ShoppingCart();
+                    $shoppingCart->setUser($user);
+                    $shoppingCart->setCartData(['items' => []]);
+                    $entityManager->persist($shoppingCart);
+                    $entityManager->flush();
+                }
+            }
 
             // do anything else you need here, like send an email
 

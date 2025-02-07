@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About{% endblock %}
+
+{% block body %}
+    <style>
+    </style>
+    <body>
+    <header>
+        <h1>Sanity shop</h1>
+    </header>
+    <main>
+        <img src="{{ asset('images/logo.png') }}" alt="Sanity shop logo" class="banner">
+        <h2>Terms</h2>
+        <p>By purchasing from Sanity Shop, you agree to the following spooky terms of service:</p>
+        <ul>
+            <li>We cannot guarantee that our products will ward off angry spirits, vengeful ghosts, or overly curious
+                poltergeists—but hey, they might help!
+            </li>
+            <li>Sanity Shop is not responsible for any ectoplasmic messes, sudden chills, or furniture moving on its own
+                while using our products.
+            </li>
+            <li>Please do not attempt to eat, burn, or summon entities with our products unless explicitly stated in the
+                instructions.
+            </li>
+            <li>Our protective items are designed to provide peace of mind but may not work on demons, banshees, or
+                ancient curses created before 1700 AD.
+            </li>
+            <li>In the unlikely event of a full-blown haunting, please contact your local ghostbuster or exorcist—we are
+                just a shop, not supernatural experts.
+            </li>
+            <li>Sanity Shop reserves the right to change prices, summon better deals, or update these terms without
+                consulting the spirit realm.
+            </li>
+        </ul>
+        <p>Remember to proceed with caution and have fun! If you have concerns, feel free to scream (or just contact
+            us).</p>
+    </main>
+    </body>
+{% endblock %}

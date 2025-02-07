@@ -23,13 +23,6 @@ final class HomeController extends AbstractController
 
             // Zoek het winkelwagentje van de gebruiker in de database
             $shoppingCart = $entityManager->getRepository(ShoppingCart::class)->findOneBy(['user' => $user]);
-            if (!$shoppingCart) {
-                $shoppingCart = new ShoppingCart();
-                $shoppingCart->setUser($user);
-                $shoppingCart->setCartData(['items' => []]);
-                $entityManager->persist($shoppingCart);
-                $entityManager->flush();
-            }
 
             // Haal de gegevens van het winkelwagentje op
             $cartData = $shoppingCart->getCartData();
@@ -62,6 +55,13 @@ final class HomeController extends AbstractController
         // Render de 'over ons' pagina
         return $this->render('home/about.html.twig', [
             // Je kunt hier extra data toevoegen voor de Twig template
+        ]);
+    }
+    #[Route('/terms', name: 'app_terms')]
+    public function terms(): Response
+    {
+        return $this->render('home/terms.html.twig', [
+
         ]);
     }
 
