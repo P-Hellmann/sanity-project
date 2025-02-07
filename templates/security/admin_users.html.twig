@@ -25,9 +25,21 @@
                     {{ role }}
                     {% endfor %}
                 </p>
-                <p><strong>Orders:</strong>
+                <p><strong>Orders:</strong><br>
                     {% for order in user.orders %}
-                    ID:{{ order.id }}
+                        ID: {{ order.id }}<br>
+                        Address: {{ order.address }}<br>
+                        Phone: 0{{ order.phone }}<br>
+                        First Name: {{ order.firstName }}<br>
+                        Last Name: {{ order.lastName }}<br>
+                        Email: {{ order.email }}<br>
+                        Total price: ${{ order.totalPrice }}<br>
+                        items:<br> {% for item in order.items["items"] %}
+                        - {{ item.product_name }} x{{ item.quantity }}
+                        {% endfor %}<br>
+                        Date of Order: {{ order.dateOfOrder|date('d-m-Y H:i') }}
+                        <br>
+                        ------
                     {% endfor %}</p>
                 <hr>
             {% endfor %}
