@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -40,32 +39,8 @@ class SecurityController extends AbstractController
     public function showUsers(EntityManagerInterface $entityManager, Request $request): Response
     {
        $users = $entityManager->getRepository(User::class)->findAll();
-        $searchbar = $this->createForm(SearchType::class, null, ["attr" => ['placeholder' => 'Zoek gebruiker']]);
-        $searchbar->handleRequest($request);
-        if ($searchbar->isSubmitted() && $searchbar->isValid()) {
-            $searchData = $searchbar->getData();
-            $queryBuilder = $entityManager->getRepository(User::class)->createQueryBuilder('u');
-
-            if (!empty($searchData['email'])) {
-                $queryBuilder->andWhere('u.email LIKE :email')
-                    ->setParameter('email', '%' . $searchData['email'] . '%');
-            }
-
-            if (!empty($searchData['id'])) {
-                $queryBuilder->andWhere('u.id = :id')
-                    ->setParameter('id', $searchData['id']);
-            }
-
-            if (!empty($searchData['role'])) {
-                $queryBuilder->andWhere('u.roles LIKE :role')
-                    ->setParameter('role', '%' . $searchData['role'] . '%');
-            }
-
-            $users = $queryBuilder->getQuery()->getResult();
-        }
         return $this->render('security/admin_users.html.twig', [
             'users' => $users,
-            'searchbar' => $searchbar->createView(),
         ]);
     }
 }
